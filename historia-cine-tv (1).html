@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE — Una historia del Cine y la Televisión</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Special+Elite&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0a0908;
+      --paper: #f3ead3;
+      --sepia: #d9c79a;
+      --sepia-dark: #8a7242;
+      --crimson: #a8201a;
+      --gold: #c8a04a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+      opacity: .4;
+      mix-blend-mode: multiply;
+      animation: grain .25s steps(2) infinite;
+    }
+
+    @keyframes grain {
+      0% {
+        transform: translate(0, 0)
+      }
+
+      25% {
+        transform: translate(-3%, 2%)
+      }
+
+      50% {
+        transform: translate(2%, -3%)
+      }
+
+      75% {
+        transform: translate(-2%, -2%)
+      }
+
+      100% {
+        transform: translate(3%, 1%)
+      }
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 9, 8, .4) 100%);
+      animation: flicker 6s infinite;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      100% {
+        opacity: .6
+      }
+
+      48% {
+        opacity: .6
+      }
+
+      50% {
+        opacity: .85
+      }
+
+      52% {
+        opacity: .55
+      }
+
+      54% {
+        opacity: .7
+      }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(10, 9, 8, .97), rgba(10, 9, 8, .5));
+      color: var(--paper);
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: .3em;
+      backdrop-filter: blur(6px);
+    }
+
+    nav .logo {
+      font-size: 1.4rem;
+      color: var(--gold)
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none
+    }
+
+    nav a {
+      color: var(--paper);
+      text-decoration: none;
+      font-size: .8rem;
+      position: relative;
+      transition: color .3s
+    }
+
+    nav a:hover {
+      color: var(--gold)
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width .4s;
+    }
+
+    nav a:hover::after {
+      width: 100%
+    }
+
+    @media(max-width:900px) {
+      nav {
+        padding: 1rem 1.2rem
+      }
+
+      nav ul {
+        gap: .8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: 60%
+      }
+
+      nav a {
+        font-size: .65rem;
+        letter-spacing: .2em
+      }
+    }
+
+    .hero {
+      min-height: 100vh;
+      background: #0a0908;
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent 0, transparent 4px, rgba(255, 255, 255, .03) 4px, rgba(255, 255, 255, .03) 5px),
+        radial-gradient(ellipse at 30% 40%, rgba(200, 160, 74, .15), transparent 60%),
+        radial-gradient(ellipse at 70% 60%, rgba(168, 32, 26, .1), transparent 50%);
+    }
+
+    .filmstrip {
+      position: absolute;
+      width: 60px;
+      background: #1a1614;
+      border-top: 3px solid #2a2520;
+      border-bottom: 3px solid #2a2520;
+      opacity: .4;
+    }
+
+    .filmstrip::before,
+    .filmstrip::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background-image: repeating-linear-gradient(90deg, #0a0908 0, #0a0908 8px, #1a1614 8px, #1a1614 16px);
+    }
+
+    .filmstrip::before {
+      top: 0
+    }
+
+    .filmstrip::after {
+      bottom: 0
+    }
+
+    .filmstrip.left {
+      left: 2%;
+      top: 0;
+      bottom: 0
+    }
+
+    .filmstrip.right {
+      right: 2%;
+      top: 0;
+      bottom: 0
+    }
+
+    .reel {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      opacity: .3;
+      animation: spin 12s linear infinite;
+    }
+
+    .reel::before {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .reel-1 {
+      top: 15%;
+      left: 10%
+    }
+
+    .reel-2 {
+      bottom: 15%;
+      right: 10%;
+      animation-direction: reverse
+    }
+
+    .reel .spoke {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      height: 2px;
+      background: var(--gold);
+      transform-origin: left center;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 1000px
+    }
+
+    .hero .est {
+      font-family: 'Special Elite', monospace;
+      font-size: .85rem;
+      letter-spacing: .5em;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1.5s .3s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      line-height: .9;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeIn 1.5s .6s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+      display: block;
+      font-size: .7em;
+      font-weight: 400
+    }
+
+    .hero .tagline {
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      max-width: 680px;
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeIn 1.5s 1s forwards;
+      line-height: 1.6;
+    }
+
+    .hero .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: .4em;
+      font-size: .75rem;
+      color: var(--gold);
+      opacity: 0;
+      animation: fadeIn 1.5s 1.5s forwards, bounce 2s 2.5s infinite;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0)
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px)
+      }
+    }
+
+    section {
+      padding: 7rem 2rem;
+      position: relative
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto
+    }
+
+    .section-label {
+      font-family: 'Special Elite', monospace;
+      font-size: .8rem;
+      letter-spacing: .4em;
+      color: var(--crimson);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 40px;
+      height: 1px;
+      background: var(--crimson)
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: .95;
+      margin-bottom: 2rem;
+      letter-spacing: -.02em;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--crimson)
+    }
+
+    .lead {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      max-width: 760px;
+      margin-bottom: 3rem
+    }
+
+    /* SELECTOR */
+    .selector {
+      background: var(--paper);
+      padding: 5rem 2rem 0;
+      text-align: center
+    }
+
+    .selector h2 {
+      font-family: 'Playfair Display';
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: .5rem
+    }
+
+    .selector p {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      color: var(--sepia-dark)
+    }
+
+    .selector-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap
+    }
+
+    .big-btn {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      padding: 1.5rem 3rem;
+      font-family: 'Bebas Neue';
+      letter-spacing: .4em;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all .3s;
+      box-shadow: 6px 6px 0 var(--crimson);
+      position: relative;
+    }
+
+    .big-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--crimson)
+    }
+
+    .big-btn.tv-btn {
+      box-shadow: 6px 6px 0 var(--gold);
+      background: var(--crimson)
+    }
+
+    .big-btn.tv-btn:hover {
+      box-shadow: 9px 9px 0 var(--gold)
+    }
+
+    /* STAGES */
+    .stages {
+      padding-top: 5rem
+    }
+
+    .stages-cinema {
+      background: var(--paper);
+      color: var(--ink)
+    }
+
+    .stages-tv {
+      background: var(--ink);
+      color: var(--paper)
+    }
+
+    .stages-tv .section-label {
+      color: var(--gold)
+    }
+
+    .stages-tv .section-label::before {
+      background: var(--gold)
+    }
+
+    .stage {
+      margin-bottom: 6rem;
+      position: relative
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stages-tv .stage-header {
+      border-bottom-color: var(--gold)
+    }
+
+    .stage-num {
+      font-family: 'Bebas Neue';
+      font-size: 5rem;
+      line-height: .9;
+      color: var(--crimson);
+      letter-spacing: .05em;
+    }
+
+    .stages-tv .stage-num {
+      color: var(--gold)
+    }
+
+    .stage-titles {
+      flex: 1;
+      min-width: 280px
+    }
+
+    .stage-titles h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: .4rem;
+    }
+
+    .stage-titles h3 em {
+      font-style: italic;
+      color: var(--crimson)
+    }
+
+    .stages-tv .stage-titles h3 em {
+      color: var(--gold)
+    }
+
+    .stage-years {
+      font-family: 'Special Elite';
+      font-size: .95rem;
+      letter-spacing: .3em;
+      color: var(--sepia-dark);
+    }
+
+    .stages-tv .stage-years {
+      color: var(--sepia)
+    }
+
+    .stage-body {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media(max-width:840px) {
+      .stage-body {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .stage-text p {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      margin-bottom: 1.2rem
+    }
+
+    .stage-text p:first-child::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2rem;
+      font-weight: 900;
+      float: left;
+      line-height: .85;
+      margin: .4rem .7rem 0 0;
+      color: var(--crimson);
+    }
+
+    .stages-tv .stage-text p:first-child::first-letter {
+      color: var(--gold)
+    }
+
+    .stage-aside {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2rem;
+      border-left: 4px solid var(--crimson);
+      position: sticky;
+      top: 6rem;
+    }
+
+    .stages-tv .stage-aside {
+      background: #15110d;
+      border: 1px solid var(--sepia-dark);
+      border-left: 4px solid var(--gold);
+    }
+
+    .aside-title {
+      font-family: 'Bebas Neue';
+      letter-spacing: .3em;
+      font-size: .85rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .stage-aside h4 {
+      font-family: 'Playfair Display';
+      font-style: italic;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+      color: var(--paper);
+    }
+
+    .milestones {
+      list-style: none
+    }
+
+    .milestones li {
+      padding: .7rem 0;
+      border-bottom: 1px dashed var(--sepia-dark);
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--sepia);
+    }
+
+    .milestones li:last-child {
+      border-bottom: none
+    }
+
+    .milestones li strong {
+      font-family: 'Bebas Neue';
+      color: var(--gold);
+      letter-spacing: .1em;
+      flex-shrink: 0;
+    }
+
+    .keychips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1.5rem
+    }
+
+    .chip {
+      font-family: 'Special Elite';
+      font-size: .75rem;
+      letter-spacing: .15em;
+      background: var(--sepia);
+      color: var(--ink);
+      padding: .4rem .9rem;
+      text-transform: uppercase;
+      border: 1px solid var(--sepia-dark);
+    }
+
+    .stages-tv .chip {
+      background: transparent;
+      color: var(--sepia);
+      border: 1px solid var(--sepia-dark);
+    }
+
+    .divider {
+      text-align: center;
+      padding: 3rem 0;
+      background: var(--paper)
+    }
+
+    .divider span {
+      font-family: 'Bebas Neue';
+      letter-spacing: .5em;
+      color: var(--sepia-dark);
+      font-size: .9rem;
+      display: inline-block;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .divider span::before,
+    .divider span::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 100px;
+      height: 1px;
+      background: var(--sepia-dark);
+    }
+
+    .divider span::before {
+      right: 100%
+    }
+
+    .divider span::after {
+      left: 100%
+    }
+
+    .chapter-intro {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter-intro::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent 0, transparent 4px, rgba(255, 255, 255, .03) 4px, rgba(255, 255, 255, .03) 5px);
+    }
+
+    .chapter-intro.tv-intro {
+      background: linear-gradient(135deg, #0a0908, #15110d, #0a0908)
+    }
+
+    .chapter-intro.cine-intro {
+      background: linear-gradient(135deg, #0a0908, #2a0c0a, #0a0908)
+    }
+
+    .chapter-num-big {
+      font-family: 'Bebas Neue';
+      font-size: 8rem;
+      line-height: .9;
+      color: var(--gold);
+      letter-spacing: .05em;
+      margin-bottom: 1rem;
+    }
+
+    .chapter-intro h2 {
+      font-family: 'Playfair Display';
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: .95;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .chapter-intro h2 em {
+      font-style: italic;
+      color: var(--gold)
+    }
+
+    .chapter-intro p {
+      font-size: 1.3rem;
+      font-style: italic;
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: var(--sepia);
+      position: relative;
+    }
+
+    /* QUIZ */
+    .quiz {
+      background: var(--crimson);
+      color: var(--paper);
+      padding: 7rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quiz::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(45deg, transparent 0, transparent 30px, rgba(0, 0, 0, .05) 30px, rgba(0, 0, 0, .05) 31px);
+    }
+
+    .quiz-content {
+      position: relative;
+      z-index: 2
+    }
+
+    .quiz .section-label {
+      color: var(--paper)
+    }
+
+    .quiz .section-label::before {
+      background: var(--paper)
+    }
+
+    .quiz-box {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 3rem;
+      margin-top: 3rem;
+      box-shadow: 12px 12px 0 var(--ink);
+      max-width: 760px;
+    }
+
+    @media(max-width:720px) {
+      .quiz-box {
+        padding: 2rem;
+        box-shadow: 6px 6px 0 var(--ink)
+      }
+    }
+
+    .quiz-question {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: .8rem
+    }
+
+    .quiz-option {
+      background: transparent;
+      border: 2px solid var(--ink);
+      padding: 1rem 1.5rem;
+      font-family: 'Cormorant Garamond';
+      font-size: 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all .25s;
+    }
+
+    .quiz-option:not(:disabled):hover {
+      background: var(--ink);
+      color: var(--paper)
+    }
+
+    .quiz-option.correct {
+      background: #2d6a30;
+      color: var(--paper);
+      border-color: #2d6a30;
+      animation: pop .4s;
+    }
+
+    .quiz-option.wrong {
+      background: #888;
+      color: var(--paper);
+      border-color: #888;
+      opacity: .6;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.04)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    .quiz-feedback {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-style: italic;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+      animation: fadeIn .4s
+    }
+
+    .quiz-progress {
+      font-family: 'Special Elite';
+      font-size: .85rem;
+      letter-spacing: .2em;
+      margin-bottom: 1.5rem;
+      color: var(--sepia-dark);
+    }
+
+    .quiz-next {
+      margin-top: 1.5rem;
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      padding: .9rem 2rem;
+      font-family: 'Bebas Neue';
+      letter-spacing: .3em;
+      font-size: .9rem;
+      cursor: pointer;
+      display: none;
+      transition: background .3s;
+    }
+
+    .quiz-next:hover {
+      background: var(--crimson);
+      outline: 2px solid var(--ink)
+    }
+
+    .quiz-next.show {
+      display: inline-block
+    }
+
+    .quiz-final {
+      text-align: center;
+      padding: 1rem 0
+    }
+
+    .quiz-final h3 {
+      font-family: 'Playfair Display';
+      font-size: 2.4rem;
+      margin-bottom: 1rem
+    }
+
+    .quiz-final .score {
+      font-family: 'Bebas Neue';
+      font-size: 5rem;
+      color: var(--crimson);
+      line-height: 1;
+      margin: 1rem 0;
+    }
+
+    .facts {
+      background: var(--paper);
+      padding: 7rem 2rem
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .fact {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2rem;
+      transition: transform .4s;
+    }
+
+    .fact:nth-child(2n) {
+      background: var(--crimson)
+    }
+
+    .fact:nth-child(3n) {
+      background: var(--sepia-dark)
+    }
+
+    .fact:hover {
+      transform: scale(1.04) rotate(-1deg)
+    }
+
+    .fact .fact-num {
+      font-family: 'Bebas Neue';
+      font-size: 5rem;
+      line-height: .9;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .fact h5 {
+      font-family: 'Playfair Display';
+      font-size: 1.3rem;
+      margin-bottom: .8rem;
+      line-height: 1.2
+    }
+
+    .fact p {
+      font-size: 1rem;
+      line-height: 1.5;
+      opacity: .9
+    }
+
+    footer {
+      background: var(--ink);
+      color: var(--sepia);
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+      border-top: 4px double var(--gold);
+    }
+
+    footer .logo-big {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 3rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    footer p {
+      font-family: 'Special Elite';
+      font-size: .85rem;
+      letter-spacing: .15em;
+      margin-bottom: .5rem
+    }
+
+    footer .reels {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0
+    }
+
+    footer .reels span {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      position: relative;
+      display: inline-block;
+    }
+
+    footer .reels span::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .8s, transform .8s
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">◉ LUMIÈRE</div>
+    <ul>
+      <li><a href="#cine">Cine</a></li>
+      <li><a href="#tv">Televisión</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#datos">Datos</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="filmstrip left"></div>
+    <div class="filmstrip right"></div>
+    <div class="reel reel-1">
+      <div class="spoke"></div>
+      <div class="spoke" style="transform:rotate(60deg)"></div>
+      <div class="spoke" style="transform:rotate(120deg)"></div>
+    </div>
+    <div class="reel reel-2">
+      <div class="spoke"></div>
+      <div class="spoke" style="transform:rotate(60deg)"></div>
+      <div class="spoke" style="transform:rotate(120deg)"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="est">— Semestre: 5to · Materia: Informatica —</div>
+      <h1>Lumière<em>la imagen que se mueve</em></h1>
+      <p class="tagline">Un viaje cinematográfico desde las sombras chinescas hasta el streaming global. La historia del
+        cine y la televisión, contada en pantalla, etapa por etapa.</p>
+    </div>
+    <div class="scroll-cue">DESPLAZA ↓ PARA COMENZAR</div>
+  </header>
+
+  <section class="selector">
+    <h2>Dos pantallas, una sola historia</h2>
+    <p>¿Por dónde quieres empezar?</p>
+    <div class="selector-buttons">
+      <button class="big-btn" onclick="document.getElementById('cine').scrollIntoView()">▶ HISTORIA DEL CINE</button>
+      <button class="big-btn tv-btn" onclick="document.getElementById('tv').scrollIntoView()">▣ HISTORIA DE LA
+        TV</button>
+    </div>
+  </section>
+
+  <!-- ========== HISTORIA DEL CINE ========== -->
+  <section class="chapter-intro cine-intro" id="cine">
+    <div class="chapter-num-big">I</div>
+    <h2>Historia del <em>Cine</em></h2>
+    <p>Ocho etapas que transformaron una curiosidad óptica del siglo XIX en el arte más influyente del siglo XX y XXI.
+    </p>
+  </section>
+
+  <section class="stages stages-cinema">
+    <div class="container">
+
+      <!-- ETAPA 1 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">01</div>
+          <div class="stage-titles">
+            <h3>El <em>pre-cine</em> y la captura del movimiento</h3>
+            <div class="stage-years">SIGLO XIX · ANTES DE 1895</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>Antes de que existiera el cine como tal, hubo más de un siglo de experimentos para capturar y reproducir
+              el movimiento. La linterna mágica, popularizada en el siglo XVII pero muy refinada en el XIX, ya
+              proyectaba imágenes pintadas en vidrio sobre una pared. En 1832 aparecieron juguetes ópticos como el
+              <strong>fenaquistiscopio</strong> de Joseph Plateau y, después, el <strong>zoótropo</strong> y el
+              <strong>praxinoscopio</strong> de Émile Reynaud, que daban la ilusión de movimiento a partir de dibujos en
+              secuencia.
+            </p>
+            <p>El gran salto llegó con la fotografía. En 1878, Eadweard Muybridge resolvió una apuesta sobre si los
+              caballos levantaban las cuatro patas al galope colocando 12 cámaras en serie: nació la
+              <strong>cronofotografía</strong>. Étienne-Jules Marey perfeccionó la técnica con su "fusil fotográfico",
+              capaz de tomar 12 imágenes por segundo. En 1888, el francés Louis Le Prince filmó en Leeds las primeras
+              imágenes en movimiento conocidas — la <em>Roundhay Garden Scene</em> — apenas dos segundos que ya eran
+              cine.
+            </p>
+            <p>Faltaba el último ingrediente: el celuloide flexible de George Eastman (1889) y el kinetoscopio de Edison
+              y Dickson (1891), una caja de visión individual que ya proyectaba películas. La técnica estaba lista. Solo
+              faltaba la sala.</p>
+            <div class="keychips">
+              <span class="chip">Linterna mágica</span>
+              <span class="chip">Zoótropo</span>
+              <span class="chip">Muybridge</span>
+              <span class="chip">Marey</span>
+              <span class="chip">Edison</span>
+              <span class="chip">Kinetoscopio</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Camino a la sala oscura</h4>
+            <ul class="milestones">
+              <li><span>Fenaquistiscopio (Plateau)</span><strong>1832</strong></li>
+              <li><span>Caballo de Muybridge</span><strong>1878</strong></li>
+              <li><span>Praxinoscopio (Reynaud)</span><strong>1877</strong></li>
+              <li><span>Roundhay Garden Scene</span><strong>1888</strong></li>
+              <li><span>Celuloide flexible</span><strong>1889</strong></li>
+              <li><span>Kinetoscopio (Edison)</span><strong>1891</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 2 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">02</div>
+          <div class="stage-titles">
+            <h3>El <em>nacimiento</em> del cine y los pioneros</h3>
+            <div class="stage-years">1895 — 1910</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>El 28 de diciembre de 1895, en el Salón Indien del Grand Café de París, los hermanos Louis y Auguste
+              Lumière proyectaron diez breves películas ante 33 espectadores que pagaron un franco. Aquella noche nació,
+              oficialmente, el cine. Su <em>cinematógrafo</em> era cámara, laboratorio y proyector a la vez. Pocos meses
+              después, una de sus cintas — la llegada del tren a La Ciotat — provocó pánico entre el público.</p>
+            <p>Mientras los Lumière apostaban por documentar la realidad ("salida de los obreros de la fábrica", "la
+              comida del bebé"), un mago francés, <strong>Georges Méliès</strong>, descubrió que el cine podía mentir.
+              En 1902 estrenó <em>Viaje a la Luna</em>, primera película de ciencia ficción y primer gran ejercicio de
+              efectos especiales: trucos de cámara, decorados pintados, fusión de planos. Si los Lumière fueron los
+              reporteros, Méliès fue el ilusionista.</p>
+            <p>En Estados Unidos, Edwin S. Porter dio otro paso fundamental con <em>The Great Train Robbery</em> (1903):
+              doce minutos, montaje paralelo, narrativa con principio y final. El cine empezaba a contar historias, no
+              solo a mostrar imágenes. Hacia 1910, salas dedicadas — los <strong>nickelodeons</strong> — proliferaban en
+              EE.UU. y Europa: el público ya estaba enganchado.</p>
+            <div class="keychips">
+              <span class="chip">Hermanos Lumière</span>
+              <span class="chip">Méliès</span>
+              <span class="chip">Edwin Porter</span>
+              <span class="chip">Cinematógrafo</span>
+              <span class="chip">Nickelodeons</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Los primeros 15 años</h4>
+            <ul class="milestones">
+              <li><span>Primera proyección Lumière</span><strong>1895</strong></li>
+              <li><span>Viaje a la Luna (Méliès)</span><strong>1902</strong></li>
+              <li><span>The Great Train Robbery</span><strong>1903</strong></li>
+              <li><span>Apogeo del nickelodeon</span><strong>1908</strong></li>
+              <li><span>Primer estudio en Hollywood</span><strong>1911</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 3 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">03</div>
+          <div class="stage-titles">
+            <h3>La era <em>muda</em> y el sistema de estudios</h3>
+            <div class="stage-years">1910 — FINALES DE 1920</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>En las dos décadas siguientes el cine se convirtió en industria. En Estados Unidos, los productores
+              huyeron de las patentes de Edison en la costa este y se instalaron en un pueblecito de California llamado
+              <strong>Hollywood</strong>. Allí nacieron los grandes estudios — Universal (1912), Paramount (1914),
+              Warner Bros. (1923), MGM (1924) — que pronto controlarían producción, distribución y exhibición: el
+              <em>star system</em> y el cine como negocio global.
+            </p>
+            <p>Aunque mudo, el cine de los años 20 fue extraordinariamente rico. <strong>D. W. Griffith</strong>
+              consolidó el lenguaje narrativo (planos, montaje, primer plano emocional) en obras polémicas como <em>El
+                nacimiento de una nación</em> (1915). Charles Chaplin, Buster Keaton y Harold Lloyd convirtieron la
+              comedia muda en un arte universal. Greta Garbo y Rodolfo Valentino fueron los primeros mitos sexuales
+              globales.</p>
+            <p>En Europa, el cine se hizo arte de vanguardia. El <strong>expresionismo alemán</strong> dio <em>El
+                gabinete del Dr. Caligari</em> (1920), <em>Nosferatu</em> (1922) y <em>Metrópolis</em> (1927). En la
+              URSS, Eisenstein teorizó y aplicó el montaje en <em>El acorazado Potemkin</em> (1925). Las películas no
+              necesitaban palabras para ser revolucionarias.</p>
+            <div class="keychips">
+              <span class="chip">Hollywood</span>
+              <span class="chip">Star system</span>
+              <span class="chip">Griffith</span>
+              <span class="chip">Chaplin</span>
+              <span class="chip">Expresionismo alemán</span>
+              <span class="chip">Eisenstein</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>El cine como industria y arte</h4>
+            <ul class="milestones">
+              <li><span>El nacimiento de una nación</span><strong>1915</strong></li>
+              <li><span>El gabinete del Dr. Caligari</span><strong>1920</strong></li>
+              <li><span>Nosferatu</span><strong>1922</strong></li>
+              <li><span>El acorazado Potemkin</span><strong>1925</strong></li>
+              <li><span>Metrópolis (Lang)</span><strong>1927</strong></li>
+              <li><span>El maquinista de la General</span><strong>1926</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 4 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">04</div>
+          <div class="stage-titles">
+            <h3>El cine <em>sonoro</em>, el color y la Edad de Oro</h3>
+            <div class="stage-years">1927 — 1940</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>El 6 de octubre de 1927, Warner Bros. estrenó <em>El cantor de jazz</em>. No era completamente sonora —
+              apenas algunas escenas habladas y cantadas — pero bastó. En menos de tres años, el cine mudo había muerto.
+              Estrellas con voces inadecuadas para el micrófono desaparecieron; otras, como Greta Garbo, sobrevivieron.
+              Los directores tuvieron que reinventarse y los estudios se reorganizaron alrededor del sonido
+              sincronizado.</p>
+            <p>Casi al mismo tiempo, el color empezaba a colarse. El sistema <strong>Technicolor</strong> de tres tiras
+              dio sus primeros frutos en cortos animados de Disney y, finalmente, en <em>El mago de Oz</em> y <em>Lo que
+                el viento se llevó</em> (ambas de 1939), año cumbre de Hollywood. Disney lanzó <em>Blancanieves</em>
+              (1937), primer largometraje de animación en Technicolor: el cine animado se equiparaba al cine de actores.
+            </p>
+            <p>Estos años son la <strong>Edad de Oro de Hollywood</strong>. Los grandes estudios — MGM, Paramount,
+              Warner, Fox, RKO — funcionaban como fábricas de películas con actores bajo contrato. Nacieron los géneros
+              clásicos: el musical, el western sonoro, la screwball comedy, el cine negro. Una entrada al cine costaba
+              25 centavos y dos tercios de los estadounidenses iban una vez por semana.</p>
+            <div class="keychips">
+              <span class="chip">El cantor de jazz</span>
+              <span class="chip">Technicolor</span>
+              <span class="chip">Disney</span>
+              <span class="chip">Edad de Oro</span>
+              <span class="chip">Star system</span>
+              <span class="chip">Géneros clásicos</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Cuando el cine encontró su voz</h4>
+            <ul class="milestones">
+              <li><span>El cantor de jazz (sonido)</span><strong>1927</strong></li>
+              <li><span>Primer Oscar</span><strong>1929</strong></li>
+              <li><span>King Kong</span><strong>1933</strong></li>
+              <li><span>Blancanieves (Disney)</span><strong>1937</strong></li>
+              <li><span>Lo que el viento se llevó</span><strong>1939</strong></li>
+              <li><span>El mago de Oz</span><strong>1939</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 5 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">05</div>
+          <div class="stage-titles">
+            <h3>El desafío de la <em>televisión</em> y el cine de autor</h3>
+            <div class="stage-years">1950 — 1960</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>En la posguerra, Hollywood se topó con un enemigo inesperado: la televisión. Si la gente podía
+              entretenerse gratis en casa, ¿para qué iba al cine? La asistencia se desplomó. La industria respondió con
+              todo aquello que la TV no podía ofrecer: pantallas gigantes (<strong>CinemaScope</strong>, VistaVision,
+              Cinerama), color en todas partes, sonido estéreo, espectáculos épicos como <em>Ben-Hur</em> (1959) o
+              <em>Los diez mandamientos</em> (1956).
+            </p>
+            <p>Mientras tanto, el viejo sistema de estudios se desmoronaba. La sentencia antimonopolio
+              <em>Paramount</em> de 1948 había obligado a separar producción y exhibición; la lista negra de la era
+              McCarthy expulsó a guionistas y directores. Surgieron productoras independientes, actores que negociaban
+              por película (Marlon Brando, James Dean) y un cine adulto, problemático, fuera del molde clásico.
+            </p>
+            <p>En Europa estallaba el <strong>cine de autor</strong>. La Nouvelle Vague francesa — Godard, Truffaut,
+              Chabrol — rodaba en la calle, con cámara en mano y sin guion fijo. El neorrealismo italiano (De Sica,
+              Rossellini) ya había mostrado la posguerra sin maquillaje. Bergman en Suecia, Kurosawa en Japón, Fellini
+              en Italia: el cine se reconoció como arte mayor con firma propia, capaz de competir con la novela y el
+              teatro.</p>
+            <div class="keychips">
+              <span class="chip">CinemaScope</span>
+              <span class="chip">Nouvelle Vague</span>
+              <span class="chip">Neorrealismo</span>
+              <span class="chip">Bergman</span>
+              <span class="chip">Kurosawa</span>
+              <span class="chip">Brando</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>El cine se vuelve adulto</h4>
+            <ul class="milestones">
+              <li><span>Sentencia Paramount</span><strong>1948</strong></li>
+              <li><span>Sunset Boulevard</span><strong>1950</strong></li>
+              <li><span>Cantando bajo la lluvia</span><strong>1952</strong></li>
+              <li><span>Los siete samuráis</span><strong>1954</strong></li>
+              <li><span>Al final de la escapada</span><strong>1960</strong></li>
+              <li><span>Psicosis</span><strong>1960</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 6 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">06</div>
+          <div class="stage-titles">
+            <h3>El <em>Nuevo Hollywood</em> y la era del blockbuster</h3>
+            <div class="stage-years">1967 — 1990</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>A finales de los 60, los viejos magnates ya no entendían a su público. Una nueva generación — Coppola,
+              Scorsese, Spielberg, Lucas, De Palma, Friedkin, Altman — llegó con cinefilia europea, formación
+              universitaria y ganas de romperlo todo. Películas como <em>Bonnie and Clyde</em> (1967), <em>Easy
+                Rider</em> (1969), <em>El padrino</em> (1972) o <em>Taxi Driver</em> (1976) eran oscuras, violentas,
+              ambiguas: todo lo que la Edad de Oro había evitado. Era el <strong>Nuevo Hollywood</strong>.</p>
+            <p>Pero el mismo Spielberg que había nacido de esa libertad la transformó en otra cosa. Con <em>Tiburón</em>
+              (1975) inauguró el <strong>blockbuster</strong> moderno: estreno simultáneo en miles de salas, campaña
+              masiva, banda sonora memorable, secuelas. <em>La guerra de las galaxias</em> (1977) de George Lucas
+              confirmó la fórmula y añadió otra revolución: el <em>merchandising</em>. El juguete podía ganar más que la
+              película.</p>
+            <p>Los 80 fueron la consagración del modelo. <em>E.T.</em> (1982), <em>Indiana Jones</em>, <em>Volver al
+                futuro</em> (1985), <em>Top Gun</em> (1986). Aparecieron las multisalas, el VHS llevó las películas al
+              salón de casa y los efectos especiales prácticos llegaron a su cumbre con <em>Terminator</em> (1984) y
+              <em>Cazafantasmas</em>. El cine se hizo a la vez más adolescente y más global.
+            </p>
+            <div class="keychips">
+              <span class="chip">Coppola</span>
+              <span class="chip">Scorsese</span>
+              <span class="chip">Spielberg</span>
+              <span class="chip">Lucas</span>
+              <span class="chip">Blockbuster</span>
+              <span class="chip">Multisalas</span>
+              <span class="chip">VHS</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>De auteurs a taquillazos</h4>
+            <ul class="milestones">
+              <li><span>Bonnie and Clyde</span><strong>1967</strong></li>
+              <li><span>El padrino</span><strong>1972</strong></li>
+              <li><span>Tiburón</span><strong>1975</strong></li>
+              <li><span>Star Wars</span><strong>1977</strong></li>
+              <li><span>E.T.</span><strong>1982</strong></li>
+              <li><span>Indiana Jones</span><strong>1981</strong></li>
+              <li><span>Boom del VHS</span><strong>1985</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 7 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">07</div>
+          <div class="stage-titles">
+            <h3>La revolución <em>digital</em> y los efectos visuales</h3>
+            <div class="stage-years">1990 — 2010</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>En 1991, <em>Terminator 2</em> de James Cameron mostró un villano de metal líquido que ningún efecto
+              práctico podía lograr. Dos años después, <em>Jurassic Park</em> (1993) presentó dinosaurios
+              fotorrealistas. Ambas películas usaron CGI (imágenes generadas por computador) de un modo que cambió las
+              reglas: a partir de ese momento, en el cine podía verse <em>cualquier cosa</em>.</p>
+            <p>La revolución digital fue mucho más allá de los efectos. La edición pasó de la moviola al ordenador
+              (Avid, Final Cut). El sonido se digitalizó. El propio rodaje empezó a abandonar el celuloide: George Lucas
+              filmó <em>El ataque de los clones</em> (2002) íntegramente en digital. Una década después, las salas
+              habían cambiado los proyectores de 35 mm por equipos digitales. El cine, que llevaba más de un siglo sobre
+              película fotoquímica, dejó de tenerla.</p>
+            <p>El cine independiente vivió su propio renacer en los 90 (Tarantino, los hermanos Coen, Soderbergh,
+              Linklater) gracias a festivales como Sundance. Y en 2009, <em>Avatar</em> de James Cameron resucitó el 3D
+              estereoscópico y arrasó la taquilla mundial. Lo digital no solo había transformado el cine: estaba creando
+              géneros enteros nuevos, como las películas de superhéroes que dominarían la década siguiente.</p>
+            <div class="keychips">
+              <span class="chip">CGI</span>
+              <span class="chip">Cameron</span>
+              <span class="chip">Pixar</span>
+              <span class="chip">Tarantino</span>
+              <span class="chip">3D digital</span>
+              <span class="chip">Cine indie</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Píxeles en pantalla</h4>
+            <ul class="milestones">
+              <li><span>Terminator 2</span><strong>1991</strong></li>
+              <li><span>Jurassic Park</span><strong>1993</strong></li>
+              <li><span>Toy Story (Pixar)</span><strong>1995</strong></li>
+              <li><span>Pulp Fiction</span><strong>1994</strong></li>
+              <li><span>Matrix</span><strong>1999</strong></li>
+              <li><span>El señor de los anillos</span><strong>2001-03</strong></li>
+              <li><span>Avatar</span><strong>2009</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ETAPA 8 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">08</div>
+          <div class="stage-titles">
+            <h3>Universos <em>cinematográficos</em> y streaming</h3>
+            <div class="stage-years">2010 — ACTUALIDAD</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>Marvel, en 2008, había estrenado <em>Iron Man</em> con una idea radical: y si en lugar de hacer películas
+              sueltas, todas estuvieran conectadas en un mismo mundo? Diez años y veintitantas películas después,
+              <em>Avengers: Endgame</em> (2019) recaudó 2.800 millones de dólares y consagró el <strong>universo
+                cinematográfico</strong> como modelo dominante. DC, Star Wars, Harry Potter, Fast and Furious: las
+              franquicias se convirtieron en el motor de la taquilla.
+            </p>
+            <p>Pero la otra gran transformación venía de fuera de las salas. <strong>Netflix</strong>, que enviaba DVDs
+              por correo, lanzó su servicio de streaming en 2007 y, en 2013, estrenó <em>House of Cards</em>: su primera
+              serie original. La idea era simple y demoledora: el espectador ya no espera al jueves a las 9. Disney+,
+              HBO Max, Amazon Prime, Apple TV+ siguieron. Las salas dejaron de ser el único — ni siquiera el primer —
+              destino de muchas películas.</p>
+            <p>La pandemia de 2020 aceleró todo. Algunos estrenos saltaron directos al streaming. Cuando los cines
+              reabrieron, solo ciertos eventos — <em>Top Gun: Maverick</em>, <em>Oppenheimer</em>, <em>Barbie</em> — los
+              llenaban. Mientras, Corea del Sur ganaba el Oscar con <em>Parasite</em> (2020), el cine global se
+              diversificaba y la inteligencia artificial generativa empezaba a reescribir, otra vez, las reglas. La sala
+              oscura sigue ahí. Pero ya no está sola.</p>
+            <div class="keychips">
+              <span class="chip">MCU</span>
+              <span class="chip">Streaming</span>
+              <span class="chip">Netflix</span>
+              <span class="chip">Disney+</span>
+              <span class="chip">Parasite</span>
+              <span class="chip">A24</span>
+              <span class="chip">IA generativa</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Franquicias y pantallas múltiples</h4>
+            <ul class="milestones">
+              <li><span>Iron Man (inicio MCU)</span><strong>2008</strong></li>
+              <li><span>House of Cards (Netflix)</span><strong>2013</strong></li>
+              <li><span>Avengers: Endgame</span><strong>2019</strong></li>
+              <li><span>Parasite gana el Oscar</span><strong>2020</strong></li>
+              <li><span>Disney+ se lanza</span><strong>2019</strong></li>
+              <li><span>Top Gun: Maverick</span><strong>2022</strong></li>
+              <li><span>IA en producción</span><strong>2024 →</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><span>★ INTERMEDIO ★</span></div>
+
+  <!-- ========== HISTORIA DE LA TV ========== -->
+  <section class="chapter-intro tv-intro" id="tv">
+    <div class="chapter-num-big">II</div>
+    <h2>Historia de la <em>Televisión</em></h2>
+    <p>Seis grandes etapas: desde un disco giratorio en un ático escocés hasta el algoritmo que decide qué ves esta
+      noche.</p>
+  </section>
+
+  <section class="stages stages-tv">
+    <div class="container">
+
+      <!-- TV ETAPA 1 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">01</div>
+          <div class="stage-titles">
+            <h3>La televisión <em>mecánica</em></h3>
+            <div class="stage-years">1884 — 1920</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>La idea de transmitir imágenes a distancia es más antigua que el propio cine. En 1884, el alemán
+              <strong>Paul Nipkow</strong> patentó un sistema clave: el <em>disco de Nipkow</em>, un disco perforado en
+              espiral que, al girar, descomponía una imagen en líneas. Era la primera técnica capaz, en teoría, de
+              "barrer" una escena para convertirla en una señal. La televisión, antes de ser electrónica, fue mecánica.
+            </p>
+            <p>Durante décadas la idea no salió del laboratorio. Se necesitaba una forma fiable de transmitir y recibir
+              esa señal. Hubo experimentos en muchos países — Estados Unidos, Reino Unido, Rusia — pero las imágenes
+              eran toscas, oscuras, de pocas líneas y prácticamente imposibles de ver con detalle. La TV mecánica era
+              una promesa, no aún una realidad.</p>
+            <p>El gran logro práctico llegó con el escocés <strong>John Logie Baird</strong>. En octubre de 1925, en un
+              ático de Londres, transmitió la primera imagen reconocible del rostro de un muñeco de ventrílocuo (al que
+              llamó "Stooky Bill") y, poco después, el rostro de un joven empleado, William Taynton: la primera persona
+              real "televisada" de la historia. La imagen tenía solo 30 líneas y unos cuantos cuadros por segundo, pero
+              funcionaba. La televisión existía.</p>
+            <div class="keychips">
+              <span class="chip">Disco de Nipkow</span>
+              <span class="chip">John Logie Baird</span>
+              <span class="chip">Stooky Bill</span>
+              <span class="chip">30 líneas</span>
+              <span class="chip">Sistema mecánico</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Antes del tubo de rayos</h4>
+            <ul class="milestones">
+              <li><span>Patente de Nipkow</span><strong>1884</strong></li>
+              <li><span>Primeros experimentos eléctricos</span><strong>1900</strong></li>
+              <li><span>Transmisión de imágenes fijas</span><strong>1907</strong></li>
+              <li><span>Baird transmite imagen reconocible</span><strong>1925</strong></li>
+              <li><span>Primera transmisión a distancia</span><strong>1926</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- TV ETAPA 2 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">02</div>
+          <div class="stage-titles">
+            <h3>Salto tecnológico: la TV <em>electrónica</em></h3>
+            <div class="stage-years">1920 — 1930</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>Mientras Baird perfeccionaba su sistema mecánico, varios inventores apostaban por un camino completamente
+              distinto: usar el <strong>tubo de rayos catódicos</strong> para escanear y reproducir imágenes
+              electrónicamente, sin partes móviles. En 1927, un joven granjero estadounidense de 21 años llamado
+              <strong>Philo Farnsworth</strong> consiguió transmitir la primera imagen plenamente electrónica: una
+              sencilla línea recta. Era el principio del fin para la TV mecánica.
+            </p>
+            <p>En paralelo, el ruso emigrado <strong>Vladimir Zworykin</strong>, trabajando para RCA, desarrolló el
+              <em>iconoscopio</em> (cámara) y el <em>cinescopio</em> (pantalla), también basados en tubos de rayos
+              catódicos. La industria estadounidense, con RCA a la cabeza, comprendió enseguida que el sistema
+              electrónico daba imágenes muchísimo más nítidas y estables, y empezó a retirar las apuestas mecánicas.
+            </p>
+            <p>La década del 30 fue el campo de pruebas. La <strong>BBC</strong> inauguró en 1936 el primer servicio
+              público regular de televisión del mundo desde Alexandra Palace, Londres. Al principio convivieron los dos
+              sistemas — el de Baird y el electrónico — pero tras unos meses el primero fue abandonado. En 1939, la NBC
+              emitió la inauguración de la Feria Mundial de Nueva York con un discurso de Roosevelt: el primer
+              presidente de EE.UU. en aparecer en TV. La era electrónica había comenzado.</p>
+            <div class="keychips">
+              <span class="chip">Tubo de rayos catódicos</span>
+              <span class="chip">Farnsworth</span>
+              <span class="chip">Zworykin</span>
+              <span class="chip">Iconoscopio</span>
+              <span class="chip">BBC</span>
+              <span class="chip">RCA</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Del disco al haz de electrones</h4>
+            <ul class="milestones">
+              <li><span>Primera imagen electrónica (Farnsworth)</span><strong>1927</strong></li>
+              <li><span>Iconoscopio (Zworykin)</span><strong>1929</strong></li>
+              <li><span>Patente CBS de TV electrónica</span><strong>1931</strong></li>
+              <li><span>BBC, primer servicio regular</span><strong>1936</strong></li>
+              <li><span>Roosevelt en NBC</span><strong>1939</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- TV ETAPA 3 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">03</div>
+          <div class="stage-titles">
+            <h3>La <em>era dorada</em> y la llegada del color</h3>
+            <div class="stage-years">1940 — 1960</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>La Segunda Guerra Mundial paralizó el desarrollo de la TV. Pero en cuanto terminó, en 1945, la industria
+              estadounidense lanzó una ofensiva comercial sin precedentes. En 1947 había unos 44.000 televisores en
+              EE.UU.; en 1953 ya pasaban de 22 millones. La TV se convirtió en el centro físico y simbólico de la sala
+              de estar. Cadenas como <strong>NBC, CBS y ABC</strong> se repartieron la audiencia con programación en
+              vivo: variedades, drama, deportes, las primeras grandes <em>sitcoms</em>.</p>
+            <p>Esta es la <strong>era dorada de la televisión clásica</strong>: <em>I Love Lucy</em> (1951), <em>The
+                Honeymooners</em>, <em>The Twilight Zone</em>, los noticieros de Edward R. Murrow, los debates
+              Kennedy-Nixon de 1960 que demostraron el poder político del medio. Programas como <em>The Ed Sullivan
+                Show</em> lanzaban estrellas a escala nacional: ahí actuaron Elvis y, más tarde, los Beatles ante 73
+              millones de espectadores.</p>
+            <p>La gran novedad técnica del periodo fue el <strong>color</strong>. CBS y RCA libraron una guerra de
+              estándares; finalmente, en 1953, la FCC adoptó el sistema NTSC compatible con los receptores en blanco y
+              negro. Las primeras transmisiones a color regulares empezaron en 1954, pero el color tardó más de una
+              década en hacerse masivo: hasta finales de los 60 la mayoría de hogares aún veían en blanco y negro.
+              Cuando llegó del todo, ya nada volvió a ser igual.</p>
+            <div class="keychips">
+              <span class="chip">NBC · CBS · ABC</span>
+              <span class="chip">I Love Lucy</span>
+              <span class="chip">Sitcom</span>
+              <span class="chip">NTSC</span>
+              <span class="chip">Color</span>
+              <span class="chip">Ed Sullivan</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>La caja entra en casa</h4>
+            <ul class="milestones">
+              <li><span>I Love Lucy</span><strong>1951</strong></li>
+              <li><span>Estándar de color NTSC</span><strong>1953</strong></li>
+              <li><span>Coronación Isabel II en TV</span><strong>1953</strong></li>
+              <li><span>Primer color regular (NBC)</span><strong>1954</strong></li>
+              <li><span>Debate Kennedy-Nixon</span><strong>1960</strong></li>
+              <li><span>The Twilight Zone</span><strong>1959-64</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- TV ETAPA 4 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">04</div>
+          <div class="stage-titles">
+            <h3>La <em>diversificación</em>: cable y satélite</h3>
+            <div class="stage-years">1960 — 1990</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>Hasta los años 70, la mayoría de los hogares recibía solo unos pocos canales por antena: las grandes
+              cadenas y poco más. La televisión por cable, originalmente concebida en zonas rurales con mala señal,
+              empezó a ofrecer en las ciudades algo nuevo: <strong>decenas de canales</strong>, cada uno especializado.
+              En 1972, una pequeña cadena llamada HBO comenzó a emitir cine sin cortes, sin censura y sin anuncios.
+              Cambió las reglas para siempre.</p>
+            <p>El otro gran salto fue el <strong>satélite</strong>. En 1962, el satélite Telstar había transmitido las
+              primeras imágenes televisivas trasatlánticas en directo. Pero la popularización vino con los <em>satélites
+                geoestacionarios</em> en los 70 y 80, que permitieron a las cadenas distribuir su señal a costes
+              razonables. <strong>CNN</strong> (1980) inauguró las noticias 24 horas globales; el Mundial 86 y los
+              Juegos Olímpicos eran ya un acontecimiento planetario simultáneo.</p>
+            <p>Y luego estaba <strong>MTV</strong>. Lanzada el 1 de agosto de 1981 con "Video Killed the Radio Star" de
+              The Buggles, convirtió la música en un género visual. La TV se diversificó por edades, por intereses, por
+              idiomas: nació un canal para niños (Nickelodeon), uno de deportes (ESPN), uno para mujeres (Lifetime). Por
+              primera vez, no existía "<em>la</em> televisión": existían televisiones, en plural. Y la audiencia
+              empezaba a fragmentarse para nunca más volver a unirse.</p>
+            <div class="keychips">
+              <span class="chip">HBO</span>
+              <span class="chip">CNN</span>
+              <span class="chip">MTV</span>
+              <span class="chip">ESPN</span>
+              <span class="chip">Telstar</span>
+              <span class="chip">Cable</span>
+              <span class="chip">Satélite</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>De tres canales a cien</h4>
+            <ul class="milestones">
+              <li><span>Telstar (TV trasatlántica)</span><strong>1962</strong></li>
+              <li><span>Alunizaje retransmitido</span><strong>1969</strong></li>
+              <li><span>HBO inicia emisiones</span><strong>1972</strong></li>
+              <li><span>CNN: noticias 24h</span><strong>1980</strong></li>
+              <li><span>MTV nace</span><strong>1981</strong></li>
+              <li><span>VHS doméstico se masifica</span><strong>1980s</strong></li>
+              <li><span>Caída del Muro en directo</span><strong>1989</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- TV ETAPA 5 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">05</div>
+          <div class="stage-titles">
+            <h3>La revolución <em>digital</em> y las pantallas planas</h3>
+            <div class="stage-years">1990 — 2010</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>Durante casi 70 años, ver televisión significó mirar un <strong>tubo de rayos catódicos</strong>: pesado,
+              voluminoso, con la pantalla curva. Eso cambió en los 2000. Las pantallas de <strong>LCD y plasma</strong>
+              permitieron televisores planos, mucho más grandes y livianos, que podían colgarse en la pared. La estética
+              del salón cambió por completo: el televisor se convirtió en un mueble, casi en un cuadro.</p>
+            <p>Simultáneamente, la propia señal pasaba a ser <strong>digital</strong>. Estados Unidos completó el apagón
+              analógico en 2009; Europa, entre 2010 y 2012. La TV digital terrestre permitió más canales, mejor calidad
+              de imagen y sonido, y servicios interactivos. Apareció la <strong>alta definición</strong> (HD): primero
+              720p, después 1080p. Las películas y los deportes nunca habían lucido así de bien en casa.</p>
+            <p>Otra pieza clave fue el <strong>DVR / TiVo</strong> (1999) y los grabadores digitales: el espectador, por
+              primera vez en la historia, podía pausar el directo, saltarse anuncios, almacenar horas de programación.
+              Era el primer paso hacia el control absoluto del usuario sobre el medio. El modelo "<em>te sientas a la
+                hora que el canal decide</em>" empezaba a tambalearse. Solo faltaba alguien dispuesto a romperlo del
+              todo. Y ya estaba en camino.</p>
+            <div class="keychips">
+              <span class="chip">LCD</span>
+              <span class="chip">Plasma</span>
+              <span class="chip">HDTV</span>
+              <span class="chip">TDT</span>
+              <span class="chip">TiVo</span>
+              <span class="chip">DVR</span>
+              <span class="chip">1080p</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>Del tubo a la pared</h4>
+            <ul class="milestones">
+              <li><span>Primer plasma comercial</span><strong>1997</strong></li>
+              <li><span>TiVo / DVR</span><strong>1999</strong></li>
+              <li><span>Boom de pantallas LCD</span><strong>2003</strong></li>
+              <li><span>HDTV se masifica</span><strong>2005</strong></li>
+              <li><span>Apagón analógico EE.UU.</span><strong>2009</strong></li>
+              <li><span>3D en TV (efímero)</span><strong>2010</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- TV ETAPA 6 -->
+      <div class="stage reveal">
+        <div class="stage-header">
+          <div class="stage-num">06</div>
+          <div class="stage-titles">
+            <h3>Smart TV, <em>alta definición</em> y streaming</h3>
+            <div class="stage-years">2010 — ACTUALIDAD</div>
+          </div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-text">
+            <p>En 2007, una empresa que enviaba DVDs por correo, Netflix, empezó a ofrecer películas en streaming por
+              internet. En 2013, dio el golpe definitivo: estrenó <em>House of Cards</em> entera, los 13 episodios de
+              golpe. Nació el <strong>binge-watching</strong>. Disney+, HBO Max, Amazon Prime, Apple TV+, Paramount+: en
+              pocos años, las grandes productoras lanzaron sus propias plataformas y la TV lineal entró en crisis. La
+              cuota de espectadores que veía contenidos por streaming superó a la TV tradicional en muchos países
+              alrededor de 2022-2024.</p>
+            <p>La pantalla acompañó la revolución. Llegó el <strong>4K Ultra HD</strong>, el <strong>HDR</strong>, los
+              paneles <strong>OLED</strong> y, después, <strong>QLED</strong> y <strong>Mini-LED</strong>: contraste
+              casi infinito, colores que parecían pintados con luz. Las <strong>Smart TVs</strong> integraron sistemas
+              operativos completos: Netflix, YouTube y Spotify viven dentro del propio televisor. Apareció también el
+              8K, aunque su adopción es lenta — el ojo humano apenas distingue la mejora más allá de cierto tamaño y
+              distancia.</p>
+            <p>Hoy, lo que llamamos "televisión" ya no es una caja con un canal: es una constelación de pantallas,
+              plataformas y formatos. Vemos series en el móvil de camino al trabajo, retransmitimos partidos en
+              consolas, dejamos que un algoritmo decida qué nos pondrá esta noche. La TV vive su <strong>segunda edad de
+                oro narrativa</strong> — con series tan ambiciosas como cualquier película — y, al mismo tiempo, su
+              mayor crisis de identidad. Probablemente, ya no exista. Lo que sigue es otra cosa.</p>
+            <div class="keychips">
+              <span class="chip">Netflix</span>
+              <span class="chip">Smart TV</span>
+              <span class="chip">4K · 8K</span>
+              <span class="chip">OLED</span>
+              <span class="chip">HDR</span>
+              <span class="chip">Streaming</span>
+              <span class="chip">Binge</span>
+            </div>
+          </div>
+          <aside class="stage-aside">
+            <div class="aside-title">★ HITOS CLAVE</div>
+            <h4>La pantalla líquida</h4>
+            <ul class="milestones">
+              <li><span>Netflix lanza streaming</span><strong>2007</strong></li>
+              <li><span>House of Cards (binge)</span><strong>2013</strong></li>
+              <li><span>4K UHD se masifica</span><strong>2015</strong></li>
+              <li><span>OLED domina la gama alta</span><strong>2018</strong></li>
+              <li><span>Disney+ se lanza</span><strong>2019</strong></li>
+              <li><span>Streaming &gt; TV lineal</span><strong>2022</strong></li>
+              <li><span>IA y recomendación</span><strong>Hoy</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="quiz">
+    <div class="container quiz-content">
+      <div class="section-label">Capítulo III · Pon a prueba tu cinefilia</div>
+      <h2 class="section-title" style="color:var(--paper)">¿Cuánto sabes de <em style="color:var(--gold)">cine y
+          TV?</em></h2>
+      <p class="lead">Ocho preguntas. Sin trampa. Sin pausa. Acción.</p>
+
+      <div class="quiz-box" id="quizBox">
+        <div class="quiz-progress" id="quizProgress">PREGUNTA 1 DE 8</div>
+        <div class="quiz-question" id="quizQuestion">Cargando...</div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next" id="quizNext">SIGUIENTE →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATOS CURIOSOS -->
+  <section class="facts" id="datos">
+    <div class="container">
+      <div class="section-label">Bonus · Datos curiosos</div>
+      <h2 class="section-title">Lo que <em>quizá</em><br>no sabías</h2>
+
+      <div class="facts-grid">
+        <div class="fact">
+          <div class="fact-num">24</div>
+          <h5>Fotogramas por segundo</h5>
+          <p>Es el estándar del cine desde los años 20. Por debajo, vemos parpadeos. Por encima, perdemos parte de la
+            magia.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">30</div>
+          <h5>Líneas en la primera TV</h5>
+          <p>El sistema mecánico de Baird (1925) tenía solo 30 líneas. Hoy un televisor 4K tiene más de 2.000.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">600M</div>
+          <h5>Vieron la Luna en directo</h5>
+          <p>El alunizaje de 1969 fue la mayor audiencia simultánea hasta entonces. La TV unió al planeta entero.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">3hrs</div>
+          <h5>"Lo que el viento se llevó"</h5>
+          <p>Dura 3h 58min con intermisión. Aún así, sigue siendo la película más taquillera ajustada por inflación.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">73M</div>
+          <h5>Vieron a los Beatles</h5>
+          <p>En 1964, su debut en el Ed Sullivan Show fue visto por 73 millones de estadounidenses: cerca del 40% del
+            país.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">$11K</div>
+          <h5>El oro del Oscar</h5>
+          <p>La estatuilla mide 34 cm y pesa 3,8 kg. Su valor en metal apenas supera los 400 dólares. Su valor
+            simbólico, otro asunto.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">2,8B</div>
+          <h5>Avengers: Endgame</h5>
+          <p>Recaudó casi 2.800 millones de dólares en taquilla, una cifra comparable al PIB anual de algunos países
+            pequeños.</p>
+        </div>
+        <div class="fact">
+          <div class="fact-num">∞</div>
+          <h5>Horas en streaming</h5>
+          <p>Si quisieras ver todo el catálogo actual de Netflix sin parar, tardarías más de 4 años. Buena suerte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo-big">Fin.</div>
+    <div class="reels"><span></span><span></span><span></span></div>
+    <p>UNA PRODUCCIÓN DE
+    <p>
+      <br></br>
+    <p>ABRAHAM REYES | V-31.158.593
+    <p>
+    <P>LUIS CHAPARRO | V-30.524.884 </p>
+    <P>SECCION "A" </P>
+    <br></br>
+    <p>Profesora: Sandra</p>
+    <br></br>
+    <p style="opacity:.5">© LUMIÈRE · </p>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('visible'); obs.unobserve(en.target) }
+      });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(e => obs.observe(e));
+
+    const questions = [
+      {
+        q: "¿En qué año proyectaron los hermanos Lumière su primera película al público?",
+        options: ["1888", "1895", "1903", "1912"],
+        correct: 1,
+        feedback: "Correcto. El 28 de diciembre de 1895, en el Salón Indien de París. Esa noche nació oficialmente el cine."
+      },
+      {
+        q: "¿Quién patentó en 1884 el disco que hizo posible la primera televisión mecánica?",
+        options: ["John Logie Baird", "Vladimir Zworykin", "Paul Nipkow", "Philo Farnsworth"],
+        correct: 2,
+        feedback: "Paul Nipkow. Su disco perforado en espiral fue la base teórica de toda la TV mecánica posterior."
+      },
+      {
+        q: "¿Cuál fue la primera película hablada de la historia?",
+        options: ["Metrópolis", "El cantor de jazz", "Casablanca", "Ciudadano Kane"],
+        correct: 1,
+        feedback: "\"El cantor de jazz\" (1927). Aunque solo tenía algunas escenas habladas, bastó para acabar con el cine mudo."
+      },
+      {
+        q: "¿En qué año transmitió Baird la primera imagen televisiva reconocible?",
+        options: ["1922", "1925", "1930", "1936"],
+        correct: 1,
+        feedback: "1925. En un ático de Londres, transmitió el rostro de \"Stooky Bill\", un muñeco de ventrílocuo, con apenas 30 líneas."
+      },
+      {
+        q: "¿Qué película popularizó el modelo de estreno masivo o \"blockbuster\"?",
+        options: ["Star Wars", "Tiburón", "E.T.", "El Padrino"],
+        correct: 1,
+        feedback: "\"Tiburón\" (1975) de Spielberg. Se estrenó en cientos de salas a la vez con campaña masiva. Cambió la industria para siempre."
+      },
+      {
+        q: "¿Qué cadena inauguró en 1980 las noticias por cable 24 horas?",
+        options: ["BBC", "CNN", "HBO", "CBS"],
+        correct: 1,
+        feedback: "CNN, fundada por Ted Turner. Su apuesta por las noticias continuas parecía una locura entonces. Hoy es el modelo dominante."
+      },
+      {
+        q: "¿Qué serie de HBO marcó el inicio de la \"edad dorada\" de la TV moderna?",
+        options: ["Mad Men", "The Wire", "Los Soprano", "Breaking Bad"],
+        correct: 2,
+        feedback: "\"Los Soprano\" (1999). Tony Soprano cambió para siempre lo que la televisión podía hacer narrativamente."
+      },
+      {
+        q: "¿Cuál fue la primera película no anglófona en ganar el Oscar a Mejor Película?",
+        options: ["Roma", "Amélie", "Parasite", "La vida es bella"],
+        correct: 2,
+        feedback: "\"Parasite\" (2020) de Bong Joon-ho. Un hito histórico que marcó la globalización definitiva del cine."
+      }
+    ];
+
+    let qIndex = 0, score = 0;
+
+    function loadQuestion() {
+      const data = questions[qIndex];
+      const qP = document.getElementById('quizProgress');
+      const qQ = document.getElementById('quizQuestion');
+      const qO = document.getElementById('quizOptions');
+      const qF = document.getElementById('quizFeedback');
+      const qN = document.getElementById('quizNext');
+
+      qP.textContent = `PREGUNTA ${qIndex + 1} DE ${questions.length}`;
+      qQ.textContent = data.q;
+      qO.innerHTML = '';
+      qF.classList.remove('show');
+      qN.classList.remove('show');
+
+      data.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => handleAnswer(i, btn));
+        qO.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(i, btn) {
+      const data = questions[qIndex];
+      const qF = document.getElementById('quizFeedback');
+      const qN = document.getElementById('quizNext');
+      document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+      if (i === data.correct) {
+        btn.classList.add('correct');
+        score++;
+        qF.textContent = "✓ ¡Correcto! " + data.feedback;
+      } else {
+        btn.classList.add('wrong');
+        document.querySelectorAll('.quiz-option')[data.correct].classList.add('correct');
+        qF.textContent = "✗ Incorrecto. " + data.feedback;
+      }
+      qF.classList.add('show');
+      qN.classList.add('show');
+      qN.textContent = qIndex < questions.length - 1 ? 'SIGUIENTE →' : 'VER RESULTADO';
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'quizNext') {
+        qIndex++;
+        if (qIndex < questions.length) {
+          loadQuestion();
+        } else {
+          showFinal();
+        }
+      }
+    });
+
+    function showFinal() {
+      let titulo, mensaje;
+      const pct = score / questions.length;
+      if (pct === 1) { titulo = "🎬 Cinéfilo de élite"; mensaje = "Spielberg estaría orgulloso. Lo sabes todo." }
+      else if (pct >= 0.6) { titulo = "🍿 Buen espectador"; mensaje = "Tienes una sólida cultura audiovisual. ¡Bien hecho!" }
+      else if (pct >= 0.3) { titulo = "📽️ En el preámbulo"; mensaje = "Tienes margen para una buena maratón de clásicos." }
+      else { titulo = "🎟️ Nuevo en la sala"; mensaje = "¡Bienvenido! Te esperan 140 años por descubrir." }
+
+      const qBox = document.getElementById('quizBox');
+      qBox.innerHTML = `
+    <div class="quiz-final">
+      <h3>${titulo}</h3>
+      <div class="score">${score}/${questions.length}</div>
+      <p style="font-size:1.2rem;font-style:italic;margin-bottom:2rem">${mensaje}</p>
+      <button class="quiz-next show" onclick="restartQuiz()">VOLVER A JUGAR ↻</button>
+    </div>`;
+    }
+
+    function restartQuiz() {
+      qIndex = 0; score = 0;
+      const qBox = document.getElementById('quizBox');
+      qBox.innerHTML = `
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div class="quiz-question" id="quizQuestion"></div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next" id="quizNext">SIGUIENTE →</button>`;
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+</body>
+
+</html>
